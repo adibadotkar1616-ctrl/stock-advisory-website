@@ -54,17 +54,23 @@ function logout() {
 
 function nav() {
   return `
-    <nav class="nav">
-      <div class="brand" onclick="home()">Vertex Advisory</div>
-      <div class="nav-links">
-        ${state.user ? `
-          <button onclick="renderClient()">Dashboard</button>
-          <button onclick="logout()">Logout</button>
-        ` : `
-          <button onclick="auth('login')">Client Login</button>
-          <button onclick="adminAuth()">Admin Login</button>
-          <button onclick="auth('register')">Open Account</button>
-        `}
+    <nav class="site-nav">
+      <div class="nav-inner">
+        <button class="brand brand-button" onclick="home()" aria-label="Vertex Advisory home">
+          <img src="logo-mark.png" class="brand-mark" alt="Vertex Advisory logo" />
+          <span class="brand-copy"><strong>VERTEX</strong><small>ADVISORY</small></span>
+        </button>
+        <div class="nav-links">
+          ${state.user ? `
+            <button class="nav-link active-link" onclick="renderClient()">Dashboard</button>
+            <button class="nav-cta" onclick="logout()">Logout</button>
+          ` : `
+            <button class="nav-link" onclick="home()">Home</button>
+            <button class="nav-link" onclick="auth('login')">Client Login</button>
+            <button class="nav-link admin-link" onclick="adminAuth()">Admin</button>
+            <button class="nav-cta" onclick="auth('register')">Get Started</button>
+          `}
+        </div>
       </div>
     </nav>
   `;
@@ -73,17 +79,72 @@ function nav() {
 function home() {
   app.innerHTML = `
     ${nav()}
-    <main class="hero">
-      <div class="hero-content">
-        <h1>Vertex Advisory</h1>
-        <p>Professional stock research, market insights, recommendations and portfolio guidance.</p>
-        <div class="hero-buttons">
-          <button class="primary" onclick="auth('login')">Client Login</button>
-          <button class="secondary" onclick="adminAuth()">Admin Login</button>
-          <button class="secondary" onclick="auth('register')">Open Account</button>
+    <main class="landing">
+      <section class="hero-section">
+        <div class="hero-copy">
+          <span class="eyebrow-pill">TRUSTED FINANCIAL ADVISORY PLATFORM</span>
+          <h1>Smarter Investments.<br><span>Brighter Future.</span></h1>
+          <p>Professional stock research, market insights and advisory guidance designed to help you make informed investment decisions with confidence.</p>
+          <div class="hero-actions">
+            <button class="primary hero-primary" onclick="auth('register')">Get Started <span>→</span></button>
+            <button class="secondary hero-secondary" onclick="auth('login')">Client Login</button>
+          </div>
+          <div class="hero-trust">
+            <div><strong>Research</strong><span>Data-driven insights</span></div>
+            <div><strong>Guidance</strong><span>Clear market views</span></div>
+            <div><strong>Focus</strong><span>Long-term thinking</span></div>
+          </div>
         </div>
-      </div>
+        <div class="hero-visual">
+          <div class="visual-glow"></div>
+          <div class="market-card">
+            <div class="market-card-top"><span>MARKET OUTLOOK</span><b>Vertex</b></div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 520 230" role="img" aria-label="Rising market chart">
+                <defs><linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-opacity=".25"/><stop offset="100%" stop-opacity="0"/></linearGradient></defs>
+                <path d="M0 185 C55 172 70 178 105 150 S165 160 205 125 S260 135 295 102 S355 112 392 75 S440 90 520 28 L520 230 L0 230 Z" fill="url(#chartFill)"/>
+                <path d="M0 185 C55 172 70 178 105 150 S165 160 205 125 S260 135 295 102 S355 112 392 75 S440 90 520 28" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="market-card-bottom"><div><small>Market Trend</small><strong>Positive</strong></div><div class="trend">↗ Growth</div></div>
+          </div>
+          <div class="floating-logo"><img src="logo-full.png" alt="Vertex Advisory" /></div>
+        </div>
+      </section>
+
+      <section class="feature-strip">
+        <div class="feature"><span class="feature-icon">↗</span><div><strong>Expert Analysis</strong><small>Data-driven insights for smarter decisions.</small></div></div>
+        <div class="feature"><span class="feature-icon">◷</span><div><strong>Market Updates</strong><small>Stay informed with timely market trends.</small></div></div>
+        <div class="feature"><span class="feature-icon">✓</span><div><strong>Risk Awareness</strong><small>Make decisions with a disciplined approach.</small></div></div>
+        <div class="feature"><span class="feature-icon">◌</span><div><strong>Long-Term Focus</strong><small>Build your strategy around your goals.</small></div></div>
+      </section>
+
+      <section class="plans-preview">
+        <div class="section-heading"><span class="eyebrow">OUR PLANS</span><h2>Choose the right plan for your goals</h2><p>Simple advisory plans with a clean experience and transparent pricing.</p></div>
+        <div class="preview-plan-grid">
+          <article class="preview-plan"><span class="plan-label">STARTER</span><h3>Basic Plan</h3><p>For investors getting started.</p><strong>₹999 <small>/ month</small></strong><button class="secondary" onclick="auth('register')">Get Started</button></article>
+          <article class="preview-plan featured-plan"><span class="popular-badge">MOST POPULAR</span><span class="plan-label">ADVANCED</span><h3>Premium Plan</h3><p>For active investors seeking deeper insights.</p><strong>₹1,999 <small>/ month</small></strong><button class="primary" onclick="auth('register')">Get Started</button></article>
+          <article class="preview-plan"><span class="plan-label">PROFESSIONAL</span><h3>Pro Plan</h3><p>For serious market participants.</p><strong>₹3,999 <small>/ month</small></strong><button class="secondary" onclick="auth('register')">Get Started</button></article>
+        </div>
+      </section>
+
+      <section class="why-section">
+        <div class="why-card">
+          <div class="why-mark"><img src="logo-mark.png" alt="" /></div>
+          <div><span class="eyebrow">WHY VERTEX ADVISORY</span><h2>Your Goals. Our Expertise.</h2><p>We bring together research, market awareness and a professional client experience so you can stay focused on your investment objectives.</p><div class="why-points"><span>✓ Trusted Guidance</span><span>✓ Transparent Process</span><span>✓ Client Focused</span></div></div>
+        </div>
+      </section>
+
+      <section class="market-overview">
+        <div><span class="eyebrow">MARKET OVERVIEW</span><small>Illustrative market snapshot</small></div>
+        <div><strong>NIFTY 50</strong><span>24,827.65 <em>+0.50%</em></span></div>
+        <div><strong>SENSEX</strong><span>81,493.20 <em>+0.48%</em></span></div>
+        <div><strong>BANKNIFTY</strong><span>51,243.75 <em>+0.41%</em></span></div>
+      </section>
     </main>
+    <footer class="site-footer">
+      <div class="footer-inner"><img src="logo-full.png" class="footer-logo" alt="Vertex Advisory" /><div class="footer-links"><button onclick="home()">Home</button><button onclick="auth('login')">Client Login</button><button onclick="auth('register')">Open Account</button></div><div class="footer-note">© ${new Date().getFullYear()} Vertex Advisory. All rights reserved.<br><span>Investment advisory services, research and recommendations must be offered only in accordance with applicable laws, regulations and registrations.</span></div></div>
+    </footer>
   `;
 }
 
